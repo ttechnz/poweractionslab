@@ -18,7 +18,7 @@ jobs:
       - name: Install PAC
         uses: microsoft/powerplatform-actions/actions-install@v1
         with:
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID }}
 
@@ -33,6 +33,7 @@ jobs:
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID  }}
           solution-name: 'ARDDEVNOTE'
@@ -53,6 +54,7 @@ jobs:
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID  }}
           solution-file: 'solution.zip'
