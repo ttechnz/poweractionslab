@@ -67,6 +67,7 @@
                           <label description="Email" languagecode="1033" solutionaction="Modified" />
                         </labels>
                       </cell>
+                      <cell id="{01289424-a3c2-4c71-815b-cb5f2bfaf9ce}" ordinalvalue="20009" solutionaction="Removed" />
                     </row>
                     <row>
                       <cell id="{65b395e1-492e-4e0d-a2e7-5a0a236e8ec3}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002" solutionaction="Added">
@@ -74,6 +75,14 @@
                           <label description="Check Number" languagecode="1033" />
                         </labels>
                         <control id="ard_checknumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="ard_checknumber" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f07d0570-ff4a-4bff-b271-df134403f6b9}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20009" solutionaction="Added">
+                        <labels>
+                          <label description="Tag" languagecode="1033" />
+                        </labels>
+                        <control id="ard_tag" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="ard_tag" disabled="false" />
                       </cell>
                     </row>
                     <row>
