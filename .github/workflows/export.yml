@@ -9,7 +9,21 @@ on:
   workflow_dispatch: # This allows manual triggering of the workflow
 
 jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install PAC
+        uses: microsoft/powerplatform-actions/actions-install@v1
+        with:
+          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+
   export:
+    needs: install  # This ensures the export job waits for the install job to complete
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
