@@ -22,6 +22,9 @@ jobs:
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID }}
 
+      - name: Verify PAC Installation
+        run: pac --version
+
   export:
     needs: install  # This ensures the export job waits for the install job to complete
     runs-on: ubuntu-latest
@@ -30,18 +33,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Export Solution
-        uses: microsoft/powerplatform-actions/export-solution@v1
-        with:
-          environment-url: 'https://ard26dev.crm6.dynamics.com/'
-          app-id: ${{ secrets.APP_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID  }}
-          solution-name: 'ARDDEVNOTE'
-          solution-output-file: 'solution.zip'
-          managed: false
-          run-asynchronously: false
-          cloud: 'Public'
-          max-async-wait-time: 60
+        run: |
+          pac auth create --clientId ${{ secrets.APP_ID }} --clientSecret ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }} --environment 'https://ard26dev.crm6.dynamics.com'
+          pac solution export --name 'ARDDEVNOTE' --outputFile 'solution.zip' --managed false --async false
 
   import:
     needs: export  # This ensures the import job waits for the export job to complete
@@ -50,14 +44,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Import Solution
-        uses: microsoft/powerplatform-actions/import-solution@v1
+      - name: Install PAC
+        uses: microsoft/powerplatform-actions/actions-install@v1
         with:
-          environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
           app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID  }}
-          solution-file: 'solution.zip'
-          activate-plugins: true
-          overwrite-unmanaged-customizations: true
-          skip-dependency-check: false
+          tenant-id: ${{ secrets.TENANT_ID }}
+
+      - name: Import Solution
+        run: |
+          pac auth create --clientId ${{ secrets.APP_ID }} --clientSecret ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }} --environment 'https://org7ccdbb6a.crm6.dynamics.com'
+          pac solution import --path 'solution.zip' --activate-plugins --overwrite-unmanaged-customizations --skip-dependency-check false
