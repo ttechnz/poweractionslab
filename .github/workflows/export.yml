@@ -9,24 +9,24 @@ on:
   workflow_dispatch: # This allows manual triggering of the workflow
 
 jobs:
-  install:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Install .NET
+        uses: actions/setup-dotnet@v2
         with:
-          node-version: '14'
+          dotnet-version: '6.0'
 
-      - name: Install PAC CLI
+      - name: Install Power Platform CLI
         run: |
-          npm install -g @microsoft/powerplatform-cli
-          echo "PAC CLI version: $(pac --version)"
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          dotnet tool list --global
 
   export:
-    needs: install  # This ensures the export job waits for the install job to complete
+    needs: setup  # This ensures the export job waits for the setup job to complete
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
