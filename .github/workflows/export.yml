@@ -1,5 +1,5 @@
 name: 'export-and-import-solution'
-description: 'Power Platform Export and Import Solution'
+# description: 'Power Platform Export and Import Solution'
 
 # Define the event triggers
 on:
@@ -29,8 +29,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Export Solution
-       # uses: microsoft/powerplatform-actions/export-solution@v1
-        uses: ./microsoft/powerplatform-actions/export-solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+       # uses: ./microsoft/powerplatform-actions/export-solution
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
           app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
@@ -51,8 +51,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Import Solution
-      #  uses: microsoft/powerplatform-actions/import-solution@v1
-        uses: ./microsoft/powerplatform-actions/import-solution
+        uses: microsoft/powerplatform-actions/import-solution@v1
+      #  uses: ./microsoft/powerplatform-actions/import-solution
         with:
           environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
           app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
