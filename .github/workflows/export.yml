@@ -1,5 +1,5 @@
-name: 'export-solution'
-description: 'Power Platform Export Solution'
+name: 'export-and-import-solution'
+description: 'Power Platform Export and Import Solution'
 
 # Define the event triggers
 on:
@@ -8,88 +8,40 @@ on:
       - main
   workflow_dispatch: # This allows manual triggering of the workflow
 
-inputs:
-  environment-url:
-    description: 'URL of Power Platform environment to connect with; e.g. "https://ard26dev.crm6.dynamics.com/"'
-    required: true
-    default: 'https://ard26dev.crm6.dynamics.com/'
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-  user-name: 
-    description: 'Power Platform user name to authenticate with, e.g. myname@my-org.onmicrosoft.com. Setting this input makes user-name and password required; specifying alternate "app-id" credential set of inputs will result in an error.'
-    required: true
+      - name: Export Solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: 'https://ard26dev.crm6.dynamics.com/'
+          user-name: ${{ secrets.USER_NAME }}
+          password-secret: ${{ secrets.PASSWORD_SECRET }}
+          solution-name: 'ARDDEVNOTE'
+          solution-output-file: 'solution.zip'
+          managed: false
+          run-asynchronously: false
+          cloud: 'Public'
+          max-async-wait-time: 60
 
-  password-secret: 
-    description: 'Power Platform password, required if authenticating with username. Do NOT check in password, instead create a secret and reference it here with: see: https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
-    required: true
+  import:
+    needs: export  # This ensures the import job waits for the export job to complete
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-  app-id:
-    description: 'The application id to authenticate with. Setting this input makes app-id, tenant-id and client-secret required; specifying alternate "username" credential set of inputs will result in an error.'
-    required: false
-    default: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
-
-  client-secret:
-    description: 'The client secret to authenticate with. Required if authenticating with app-id.'
-    required: false
-    default: '95859b4c-fd30-46d9-b5dd-8b18bf04a62b'
-
-  tenant-id:
-    description: 'Tenant id if using app-id & client secret to authenticate.'
-    required: false
-    default: 'd1ee9b37-cae3-4945-a777-7b8b03047391'
-
-  solution-name:
-    description: 'Name of solution to export'
-    required: true
-    default: 'ARDDEVNOTE'
-
-  solution-version:
-    description: 'DEPRECATED: Version of solution to export'
-    required: false
-    deprecationMessage: 'This property is deprecated and will be ignored.'
-
-  solution-output-file:
-    description: 'Path/filename where to place the exported solution zip file. Can be absolute or relative to working-directory'
-    required: true
-
-  managed:
-    description: 'Export as managed solution; default is to export as unmanaged solution'
-    required: false
-    default: 'false'
-
-  working-directory:
-    description: 'Working directory; default: root of repository'
-    required: false
-
-  run-asynchronously:
-    description: 'Exports solution asynchronously'
-    required: false
-    default: 'false'
-
-  cloud:
-    description: 'Cloud instance to authenticate with. Default: Public. See "pac auth create help" for valid cloud instance names'
-    required: false
-    default: 'Public'
-
-  max-async-wait-time:
-    description: 'Maximum wait time in minutes for asynchronous export; default is 60 min (1 hr).'
-    required: false
-    default: '60'
-
-  export-auto-numbering-settings:
-    description: 'Specify whether to export auto numbering settings.'
-    required: false
-    default: 'false'
-
-  export-calendar-settings:
-    description: 'Specify whether to export calendar settings.'
-    required: false
-    default: 'false'
-
-  export-customization-settings:
-    description: 'Specify whether to export customization settings.'
-    required: false
-    default: 'false'
-
-  export-email-tracking-settings:
-    description: 'Specify whether to export email tracking settings.'
-    required:
+      - name: Import Solution
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
+          user-name: ${{ secrets.USER_NAME }}
+          password-secret: ${{ secrets.PASSWORD_SECRET }}
+          solution-file: 'solution.zip'
+          activate-plugins: true
+          overwrite-unmanaged-customizations: true
+          skip-dependency-check: false
