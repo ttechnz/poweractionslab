@@ -34,8 +34,8 @@ jobs:
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
           app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
-          client-secret: '95859b4c-fd30-46d9-b5dd-8b18bf04a62b'
-          tenant-id: 'd1ee9b37-cae3-4945-a777-7b8b03047391'
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID  }}
           solution-name: 'ARDDEVNOTE'
           solution-output-file: 'solution.zip'
           managed: false
@@ -55,8 +55,8 @@ jobs:
         with:
           environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
           app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
-          client-secret: '95859b4c-fd30-46d9-b5dd-8b18bf04a62b'
-          tenant-id: 'd1ee9b37-cae3-4945-a777-7b8b03047391'
+         client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID  }}
           solution-file: 'solution.zip'
           activate-plugins: true
           overwrite-unmanaged-customizations: true
