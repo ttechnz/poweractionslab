@@ -102,7 +102,7 @@ jobs:
 
        
 
-    - name: export-solution action -managed
+    - name: export-solution action -unmanaged
 
       uses: microsoft/powerplatform-actions/export-solution@v0
 
@@ -120,7 +120,7 @@ jobs:
 
         managed: false
 
-        solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}_managed.zip
+        solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}_unmanaged.zip
 
  
 
