@@ -1,5 +1,5 @@
-name: 'export-and-import-solution'
-# description: 'Power Platform Export and Import Solution'
+name: 'Export and Import Solution'
+description: 'Power Platform Export and Import Solution'
 
 # Define the event triggers
 on:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # This allows manual triggering of the workflow
 
 jobs:
-  install:
+  setup:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
@@ -17,47 +17,64 @@ jobs:
       - name: Install PAC
         uses: microsoft/powerplatform-actions/actions-install@v1
         with:
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID }}
 
   export:
-    needs: install  # This ensures the export job waits for the install job to complete
-    runs-on: ubuntu-latest
+    needs: setup  # This ensures the export job waits for the setup job to complete
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Export Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
-       # uses: ./microsoft/powerplatform-actions/export-solution
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID  }}
+          tenant-id: ${{ secrets.TENANT_ID }}
           solution-name: 'ARDDEVNOTE'
           solution-output-file: 'solution.zip'
           managed: false
           run-asynchronously: false
           cloud: 'Public'
           max-async-wait-time: 60
+          export-auto-numbering-settings: false
+          export-calendar-settings: false
+          export-customization-settings: false
+          export-email-tracking-settings: false
+          export-external-applications-settings: false
+          export-general-settings: false
+          export-isv-config: false
+          export-marketing-settings: false
+          export-outlook-synchronization-settings: false
+          export-relationship-roles: false
+          export-sales: false
+          overwrite: false
 
   import:
     needs: export  # This ensures the import job waits for the export job to complete
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install PAC
+        uses: microsoft/powerplatform-actions/actions-install@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+
       - name: Import Solution
         uses: microsoft/powerplatform-actions/import-solution@v1
-      #  uses: ./microsoft/powerplatform-actions/import-solution
         with:
           environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID  }}
+          tenant-id: ${{ secrets.TENANT_ID }}
           solution-file: 'solution.zip'
           activate-plugins: true
           overwrite-unmanaged-customizations: true
