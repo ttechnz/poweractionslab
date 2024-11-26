@@ -15,15 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install PAC
-        uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          app-id: ${{ secrets.APP_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID }}
+          node-version: '14'
 
-      - name: Verify PAC Installation
-        run: pac --version
+      - name: Install PAC CLI
+        run: |
+          npm install -g @microsoft/powerplatform-cli
+          echo "PAC CLI version: $(pac --version)"
 
   export:
     needs: install  # This ensures the export job waits for the install job to complete
@@ -43,13 +43,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install PAC
-        uses: microsoft/powerplatform-actions/actions-install@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID }}
 
       - name: Import Solution
         run: |
