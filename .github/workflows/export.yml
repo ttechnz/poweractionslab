@@ -33,7 +33,7 @@ jobs:
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
-             client-secret: ${{ secrets.CLIENT_SECRET }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID  }}
           solution-name: 'ARDDEVNOTE'
           solution-output-file: 'solution.zip'
