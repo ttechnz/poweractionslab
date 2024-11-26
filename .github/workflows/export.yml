@@ -15,13 +15,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Install PAC
+        uses: microsoft/powerplatform-actions/actions-install@v1
         with:
-          node-version: '14' # Ensure the Node.js version is set
-
-      - name: Install PAC CLI
-        run: npm install -g @microsoft/powerplatform-cli
+          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID }}
 
   export:
     needs: install  # This ensures the export job waits for the install job to complete
@@ -34,9 +33,8 @@ jobs:
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
           environment-url: 'https://ard26dev.crm6.dynamics.com/'
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID }}
+             client-secret: ${{ secrets.CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TENANT_ID  }}
           solution-name: 'ARDDEVNOTE'
           solution-output-file: 'solution.zip'
           managed: false
@@ -55,9 +53,8 @@ jobs:
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: 'https://org7ccdbb6a.crm6.dynamics.com/'
-          app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
           client-secret: ${{ secrets.CLIENT_SECRET }}
-          tenant-id: ${{ secrets.TENANT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID  }}
           solution-file: 'solution.zip'
           activate-plugins: true
           overwrite-unmanaged-customizations: true
