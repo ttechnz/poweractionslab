@@ -94,7 +94,7 @@ on:
 
 jobs:
 
-  convert-to-managed:
+  convert-to-unmanaged:
 
     runs-on: windows-latest
 
@@ -124,9 +124,9 @@ jobs:
 
         solution-folder: ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}
 
-        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_managed.zip
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_unmanaged.zip
 
-        solution-type: Managed
+        solution-type: Unmanaged
 
  
 
@@ -146,7 +146,7 @@ jobs:
 
   release-to-staging:
 
-    needs: [ convert-to-managed ]
+    needs: [ convert-to-unmanaged ]
 
     runs-on: windows-latest
 
@@ -190,7 +190,7 @@ jobs:
 
         tenant-id: ${{ secrets.TENANT_ID }}
 
-        solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_managed.zip
+        solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_unmanaged.zip
 
         force-overwrite: true
 
