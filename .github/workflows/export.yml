@@ -31,7 +31,7 @@ jobs:
       - name: Export Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: 'https://ard26dev.crm6.dynamics.com/'
+          environment-url: https://ard26dev.crm6.dynamics.com/
           app-id: ${{ secrets.APP_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           tenant-id: ${{ secrets.TENANT_ID }}
