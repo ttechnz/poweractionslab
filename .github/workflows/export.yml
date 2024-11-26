@@ -1,40 +1,43 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
 name: 'export-solution'
 description: 'Power Platform Export Solution'
 inputs:
-  environment-url:'https://ard26dev.crm6.dynamics.com/'
-    description: 'URL of Power Platform environment to connect with; e.g. "https://test-env.crm.dynamics.com"'
+  environment-url:
+    description: 'URL of Power Platform environment to connect with; e.g. "https://ard26dev.crm6.dynamics.com/"'
     required: true
+    default: 'https://ard26dev.crm6.dynamics.com/'
 
   user-name: 
     description: 'Power Platform user name to authenticate with, e.g. myname@my-org.onmicrosoft.com. Setting this input makes user-name and password required; specifying alternate "app-id" credential set of inputs will result in an error.'
-    required: false
+    required: true
 
   password-secret: 
-    description: 'Power Platform password, required if authenticating with username. Do NOT checkin password, instead create a secret and reference it here with: see: https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
-    required: false
+    description: 'Power Platform password, required if authenticating with username. Do NOT check in password, instead create a secret and reference it here with: see: https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#using-encrypted-secrets-in-a-workflow'
+    required: true
 
-  app-id: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
+  app-id:
     description: 'The application id to authenticate with. Setting this input makes app-id, tenant-id and client-secret required; specifying alternate "username" credential set of inputs will result in an error.'
-    required: true
+    required: false
+    default: 'b0ab8343-d672-4e24-86d0-d48c19b67862'
 
-  client-secret: '95859b4c-fd30-46d9-b5dd-8b18bf04a62b'
+  client-secret:
     description: 'The client secret to authenticate with. Required if authenticating with app-id.'
-    required: true
+    required: false
+    default: '95859b4c-fd30-46d9-b5dd-8b18bf04a62b'
 
-  tenant-id: 'd1ee9b37-cae3-4945-a777-7b8b03047391'
+  tenant-id:
     description: 'Tenant id if using app-id & client secret to authenticate.'
-    required: true
+    required: false
+    default: 'd1ee9b37-cae3-4945-a777-7b8b03047391'
 
-  solution-name: 'ARDDEVNOTE'
+  solution-name:
     description: 'Name of solution to export'
     required: true
+    default: 'ARDDEVNOTE'
 
   solution-version:
     description: 'DEPRECATED: Version of solution to export'
     required: false
-    deprecationMessage: This property is deprecated and will be ignored.
+    deprecationMessage: 'This property is deprecated and will be ignored.'
 
   solution-output-file:
     description: 'Path/filename where to place the exported solution zip file. Can be absolute or relative to working-directory'
@@ -105,7 +108,7 @@ inputs:
     default: 'false'
 
   export-outlook-synchronization-settings:
-    description: 'Specify whether to export outlook synchornization settings.'
+    description: 'Specify whether to export outlook synchronization settings.'
     required: false
     default: 'false'
 
