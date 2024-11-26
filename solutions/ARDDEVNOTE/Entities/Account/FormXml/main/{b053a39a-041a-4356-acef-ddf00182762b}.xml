@@ -5,7 +5,7 @@
     <IntroducedVersion>5.0.0.0</IntroducedVersion>
     <FormPresentation>0</FormPresentation>
     <FormActivationState>0</FormActivationState>
-    <form showImage="true">
+    <form showImage="true" headerdensity="HighWithControls" solutionaction="Modified">
       <tabs>
         <tab name="general" verticallayout="true" id="{13b0fbf2-e596-4dc5-919b-7a0aea72598b}" IsUserDefined="0" ordinalvalue="1" solutionaction="Modified">
           <columns>
@@ -26,7 +26,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{414469ee-8334-476e-ae58-8ac4692d03eb}" ordinalvalue="10002">
+                      <cell id="{414469ee-8334-476e-ae58-8ac4692d03eb}" ordinalvalue="10004" solutionaction="Modified">
                         <labels>
                           <label description="Primary Contact" languagecode="1033" solutionaction="Modified" />
                         </labels>
@@ -38,7 +38,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{4c14f897-986a-40dc-a7ba-df7801d13f01}" ordinalvalue="10004">
+                      <cell id="{4c14f897-986a-40dc-a7ba-df7801d13f01}" ordinalvalue="10006" solutionaction="Modified">
                         <labels>
                           <label description="Account Number" languagecode="1033" solutionaction="Modified" />
                         </labels>
@@ -50,7 +50,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{a8a9ce07-fda7-4329-8c1f-abf5cf028319}" ordinalvalue="10006">
+                      <cell id="{a8a9ce07-fda7-4329-8c1f-abf5cf028319}" ordinalvalue="10008" solutionaction="Modified">
                         <labels>
                           <label description="Parent Account" languagecode="1033" solutionaction="Modified" />
                         </labels>
@@ -62,9 +62,24 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{dd9cfe1d-a28a-4626-b56c-a247b5c7b759}" ordinalvalue="10008">
+                      <cell id="{dd9cfe1d-a28a-4626-b56c-a247b5c7b759}" ordinalvalue="10010" solutionaction="Modified">
                         <labels>
                           <label description="Email" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{65b395e1-492e-4e0d-a2e7-5a0a236e8ec3}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002" solutionaction="Added">
+                        <labels>
+                          <label description="Check Number" languagecode="1033" />
+                        </labels>
+                        <control id="ard_checknumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="ard_checknumber" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{38980b10-4a2a-48e7-b637-2f13cc6dd7ab}" ordinalvalue="20011" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
@@ -357,6 +372,27 @@
       <formLibraries solutionaction="Added">
         <Library name="msdyn_/ActivityFeeds.Form.js" libraryUniqueId="{4181da4c-6d13-ba3c-c859-be404e4ee2e3}" />
       </formLibraries>
+      <footer id="{6192e926-5572-4076-9f0e-cce574f4bae9}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left" solutionaction="Added">
+        <rows>
+          <row>
+            <cell id="{7722a5cc-dffc-4cd7-a16a-7509a1acd560}" showlabel="false" ordinalvalue="10000">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{46bd1f34-5ad7-4d46-9b59-04505c7b4295}" showlabel="false" ordinalvalue="20001">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{48c2a0bb-485c-4faf-8e61-d46dc2e8d450}" showlabel="false" ordinalvalue="30002">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
     </form>
     <LocalizedNames>
       <LocalizedName description="Information" languagecode="1033" />
