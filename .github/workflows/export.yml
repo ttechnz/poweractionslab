@@ -102,7 +102,7 @@ jobs:
 
        
 
-    - name: export-solution action -unmanaged
+    - name: export-solution action -managed
 
       uses: microsoft/powerplatform-actions/export-solution@v0
 
