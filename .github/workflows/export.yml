@@ -1,5 +1,13 @@
 name: 'export-solution'
 description: 'Power Platform Export Solution'
+
+# Define the event triggers
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # This allows manual triggering of the workflow
+
 inputs:
   environment-url:
     description: 'URL of Power Platform environment to connect with; e.g. "https://ard26dev.crm6.dynamics.com/"'
@@ -84,50 +92,4 @@ inputs:
 
   export-email-tracking-settings:
     description: 'Specify whether to export email tracking settings.'
-    required: false
-    default: 'false'
-
-  export-external-applications-settings:
-    description: 'Specify whether to export external applications settings.'
-    required: false
-    default: 'false'
-
-  export-general-settings:
-    description: 'Specify whether to export general settings.'
-    required: false
-    default: 'false'
-
-  export-isv-config:
-    description: 'Specify whether to export isv config.'
-    required: false
-    default: 'false'
-
-  export-marketing-settings:
-    description: 'Specify whether to export marketing settings.'
-    required: false
-    default: 'false'
-
-  export-outlook-synchronization-settings:
-    description: 'Specify whether to export outlook synchronization settings.'
-    required: false
-    default: 'false'
-
-  export-relationship-roles:
-    description: 'Specify whether to export relationship roles.'
-    required: false
-    default: 'false'
-
-  export-sales:
-    description: 'Specify whether to export sales.'
-    required: false
-    default: 'false'
-
-  overwrite:
-    description: 'Allow overwrite of local solution file if it already exists.'
-    required: false
-    default: 'false'
-
-runs:
-  using: 'node16'
-  main: '../dist/actions/export-solution/index.js'
-  # main: '../out/actions/export-solution/index.js'
+    required:
